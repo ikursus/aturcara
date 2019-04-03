@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 // use DB;
 use DataTables;
+use App\Http\Requests\UserStore;
+use App\Http\Requests\UserUpdate;
+
 
 class UserController extends Controller
 {
@@ -45,7 +48,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return 'Hai!';
+        return view('theme_users/template_create');
     }
 
     /**
@@ -54,9 +57,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStore $request)
     {
-        //
+        $request->validated();
+
+        # Dapatkan semua data dari borang KECUALI password
+        $data = $request->except('password');
+        # Attachkan rekod password yang telah di-encrypt ke array $data
+        $data['password'] = bcrypt($request->input('password'));
+        # Simpan rekod ke dalam table users
+        User::create($data);
+
+        return redirect()
+        ->route('users.index')
+        ->with('alert-success', 'Rekod user baru berjaya ditambah!');
     }
 
     /**
@@ -88,9 +102,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdate $request, User $user)
     {
-        //
+        $request->validated();
+
+        # Dapatkan semua data KECUALI password
+        $data = $request->except('password');
+        # Semak jika wujud field password dan field tersebut tidak kosong (yakni mengandungi data)
+        if ($request->has('password') && !empty($request->input('password')))
+        {
+            $data['password'] = bcrypt( $request->input('password') );
+        }
+        # Kemaskini data ke dalam table user
+        $user->update($data);
+        # Redirect pengguna ke halaman sebelumnya
+        return redirect()->back()->with('alert-success', 'Rekod telah berjaya dikemaskini!');
+        # return redirect()->route('users.index');
+        # return redirect()->away('https://google.com');
     }
 
     /**

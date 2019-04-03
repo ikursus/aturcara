@@ -6,15 +6,11 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Edit User: {{ $user->name }}</div>
+                <div class="card-header">Rekod User Baru</div>
 
                 <div class="card-body">
                     
-                    {!! Form::model($user, ['route' => ['users.update', $user->id] ]) !!}
-                    
-                    <input type="hidden" name="_method" value="PATCH">
-                    @method('PATCH')
-
+                    {!! Form::open(['route' => 'users.store']) !!}
 
                     <div class="form-group">
                         <label>Nama Pengguna</label>

@@ -9,6 +9,12 @@
                 <div class="card-header">Senarai Users</div>
 
                 <div class="card-body">
+
+                    <p>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary">
+                            Add User
+                        </a>
+                    </p>
                     
                     <table class="table" id="users-table">
                         <thead class="thead-light">
