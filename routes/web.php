@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::get('users/datatables', 'UserController@datatables')->name('users.datatables');
 Route::resource('users', 'UserController');
+Route::get('programs/datatables', 'ProgramController@datatables')->name('programs.datatables');
 Route::resource('programs', 'ProgramController');
 
 Auth::routes();

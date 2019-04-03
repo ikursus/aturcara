@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Program;
 use Illuminate\Http\Request;
+use DataTables;
+
+use App\Http\Requests\ProgramRequest;
 
 class ProgramController extends Controller
 {
@@ -14,7 +17,31 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        return view('theme_programs/template_index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        $query = Program::select([
+            'id',
+            'name',
+            'tarikh_mula',
+            'tarikh_akhir',
+            'lokasi',
+            'jumlah_peserta'
+        ]);
+
+        return DataTables::of($query)
+        ->addColumn('tindakan', function($item) {
+            return view('theme_programs/template_tindakan', compact('item'));
+        })
+        ->rawColumns(['tindakan'])
+        ->make(true);
     }
 
     /**
@@ -24,7 +51,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        return view('theme_programs/template_create');
     }
 
     /**
@@ -33,9 +60,15 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProgramRequest $request)
     {
-        //
+        $request->validated();
+
+        $data = $request->all();
+
+        Program::create($data);
+
+        return redirect()->route('programs.index')->with('alert-success', 'Rekod telah berjaya ditambah!');
     }
 
     /**
@@ -57,7 +90,7 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
-        //
+        return view('theme_programs/template_edit', compact('program'));
     }
 
     /**
@@ -67,9 +100,15 @@ class ProgramController extends Controller
      * @param  \App\Program  $program
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Program $program)
+    public function update(ProgramRequest $request, Program $program)
     {
-        //
+        $request->validated();
+
+        $data = $request->all();
+
+        $program->update($data);
+
+        return redirect()->back()->with('alert-success', 'Rekod telah berjaya dikemaskini!');
     }
 
     /**
@@ -80,6 +119,8 @@ class ProgramController extends Controller
      */
     public function destroy(Program $program)
     {
-        //
+        $program->delete();
+
+        return redirect()->back()->with('alert-success', 'Rekod telah berjaya dihapuskan!');
     }
 }
