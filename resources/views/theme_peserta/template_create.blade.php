@@ -14,6 +14,9 @@
 
                     @include('theme_peserta/template_form')
 
+                    <a href="{{ route('programs.index') }}" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+
                     {!! Form::close() !!}
 
                 </div>

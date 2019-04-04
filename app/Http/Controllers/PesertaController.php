@@ -41,7 +41,9 @@ class PesertaController extends Controller
 
         return DataTables::of($query)
         ->addColumn('tindakan', function($item) {
-            return view('theme_peserta.template_tindakan', compact('item'));
+            
+            $programs = Program::pluck('name', 'id');
+            return view('theme_peserta.template_tindakan', compact('item', 'programs'));
         })
         ->addIndexColumn()
         ->rawColumns(['tindakan', 'is_vegeterian'])
@@ -98,7 +100,9 @@ class PesertaController extends Controller
      */
     public function edit(Peserta $peserta)
     {
-        return view('theme_peserta/template_edit');
+        $programs = Program::pluck('name', 'id');
+
+        return view('theme_peserta/template_edit', compact('peserta', 'programs'));
     }
 
     /**
