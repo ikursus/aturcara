@@ -19,6 +19,11 @@ Route::resource('users', 'UserController');
 Route::get('programs/datatables', 'ProgramController@datatables')->name('programs.datatables');
 Route::resource('programs', 'ProgramController');
 
+Route::get('peserta/datatables', 'PesertaController@datatables')->name('peserta.datatables');
+Route::resource('peserta', 'PesertaController')->parameters([
+    'peserta' => 'peserta'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
