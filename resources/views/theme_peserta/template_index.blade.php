@@ -57,7 +57,7 @@ $(function() {
             { data: 'email', name: 'peserta.email' },
             { data: 'status', name: 'peserta.status' },
             { data: 'is_vegeterian', name: 'peserta.is_vegeterian' },
-            { data: 'tindakan', name: 'tindakan' }
+            { data: 'tindakan', name: 'tindakan', orderable: false, searchable: false }
         ]
     });
 });
