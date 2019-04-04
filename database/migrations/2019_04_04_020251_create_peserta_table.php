@@ -21,7 +21,7 @@ class CreatePesertaTable extends Migration
             $table->string('jawatan');
             $table->string('email');
             $table->string('status', 100);
-            $table->boolean('is_vegeterian')->default(0);
+            $table->boolean('is_vegetarian')->default(0);
             $table->timestamps();
         });
     }

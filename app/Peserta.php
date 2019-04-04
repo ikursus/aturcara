@@ -16,7 +16,7 @@ class Peserta extends Model
         'jawatan',
         'email',
         'status',
-        'is_vegeterian'
+        'is_vegetarian'
     ];
 
     public function program()
@@ -31,7 +31,7 @@ class Peserta extends Model
      * @param  string  $value
      * @return string
      */
-    public function getIsVegeterianAttribute($value)
+    public function getIsVegetarianAttribute($value)
     {
         if ($value == 1)
         {

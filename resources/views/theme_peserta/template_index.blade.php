@@ -56,7 +56,7 @@ $(function() {
             { data: 'jawatan', name: 'peserta.jawatan' },
             { data: 'email', name: 'peserta.email' },
             { data: 'status', name: 'peserta.status' },
-            { data: 'is_vegeterian', name: 'peserta.is_vegeterian' },
+            { data: 'is_vegetarian', name: 'peserta.is_vegetarian' },
             { data: 'tindakan', name: 'tindakan', orderable: false, searchable: false }
         ]
     });

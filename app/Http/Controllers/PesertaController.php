@@ -7,6 +7,8 @@ use App\Program;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Http\Requests\PesertaRequest;
+use App\Mail\PendaftaranProgram;
+use Mail;
 
 class PesertaController extends Controller
 {
@@ -36,7 +38,7 @@ class PesertaController extends Controller
             'jawatan',
             'email',
             'status',
-            'is_vegeterian'
+            'is_vegetarian'
         ]);
 
         return DataTables::of($query)
@@ -46,7 +48,7 @@ class PesertaController extends Controller
             return view('theme_peserta.template_tindakan', compact('item', 'programs'));
         })
         ->addIndexColumn()
-        ->rawColumns(['tindakan', 'is_vegeterian'])
+        ->rawColumns(['tindakan', 'is_vegetarian'])
         ->make(true);
     }
 
@@ -74,7 +76,10 @@ class PesertaController extends Controller
 
         $data = $request->all();
 
-        Peserta::create($data);
+        $peserta = Peserta::create($data);
+
+        # Hantar email kepada peserta
+        Mail::to($peserta->email)->send(new PendaftaranProgram());
 
         return redirect()
         ->route('peserta.index')

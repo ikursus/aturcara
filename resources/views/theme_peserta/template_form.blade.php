@@ -31,11 +31,11 @@
 <div class="form-group">
     <label>Vegeterian?</label>
     @if (Request::is(['peserta/create']))
-    {!! Form::radio('is_vegeterian', 1) !!} YES
-    {!! Form::radio('is_vegeterian', 0) !!} NO
+    {!! Form::radio('is_vegetarian', 1) !!} YES
+    {!! Form::radio('is_vegetarian', 0) !!} NO
     @else
-    {!! Form::radio('is_vegeterian', 1, $item->is_vegeterian == 1 ? true : false) !!} YES
-    {!! Form::radio('is_vegeterian', 0, $item->is_vegeterian == 0 ? true : false) !!} NO
+    {!! Form::radio('is_vegetarian', 1, $item->is_vegetarian == 1 ? true : false) !!} YES
+    {!! Form::radio('is_vegetarian', 0, $item->is_vegetarian == 0 ? true : false) !!} NO
     @endif
     
 </div>
