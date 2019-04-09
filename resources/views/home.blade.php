@@ -16,7 +16,7 @@
 
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
+                            <tr class="table-warning">
                                 <th colspan="2">Your notifications (unread)</th>
                             </tr>
                         </thead>
@@ -40,31 +40,28 @@
 
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <th colspan="2">Your notifications (read)</th>
+                            <tr class="table-success">
+                                <th>Your notifications (read)</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        @foreach (Auth::user()->notifications as $notification) 
+                        @foreach (Auth::user()->notifications->where('read_at', '!=', null) as $notification) 
                             <tr>
                                 <td>
                                     {{ $notification->data['nama_peserta'] }} 
                                     telah didaftarkan untuk menyertai program 
                                     {{ $notification->data['nama_program'] }}
                                 </td>
-                                <td>
-                                    <a href="{{ route('notifications.read', $notification->id) }}" class="btn btn-sm btn-primary">Mark as Read</a>
-                                </td>
                             </tr>
                         @endforeach
                             <tr>
-                            <td colspan="2">
-                            {!! Form::open(['route' => 'notifications.destroy']) !!}
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-block">Delete all notifications</a>
-                            {!! Form::close() !!}
-                            </td>
+                                <td>
+                                {!! Form::open(['route' => 'notifications.destroy']) !!}
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-block">Delete all notifications</a>
+                                {!! Form::close() !!}
+                                </td>
                             </tr>
 
                         </tbody>
