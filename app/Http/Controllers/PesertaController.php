@@ -78,8 +78,8 @@ class PesertaController extends Controller
 
         $peserta = Peserta::create($data);
 
-        # Hantar email kepada peserta
-        Mail::to($peserta->email)->send(new PendaftaranProgram());
+        # Hantar email notifikasi pendaftaran program kepada peserta
+        Mail::to($peserta->email)->send(new PendaftaranProgram($peserta));
 
         return redirect()
         ->route('peserta.index')
