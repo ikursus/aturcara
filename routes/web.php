@@ -14,16 +14,25 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('users/datatables', 'UserController@datatables')->name('users.datatables');
-Route::resource('users', 'UserController');
-Route::get('programs/datatables', 'ProgramController@datatables')->name('programs.datatables');
-Route::resource('programs', 'ProgramController');
-
-Route::get('peserta/datatables', 'PesertaController@datatables')->name('peserta.datatables');
-Route::resource('peserta', 'PesertaController')->parameters([
-    'peserta' => 'peserta'
-]);
 
 Auth::routes();
 
+Route::group(['middleware' => ['auth', 'semak_admin'] ], function() {
+
+    Route::get('users/datatables', 'UserController@datatables')->name('users.datatables');
+    Route::resource('users', 'UserController');
+    Route::get('programs/datatables', 'ProgramController@datatables')->name('programs.datatables');
+    Route::resource('programs', 'ProgramController');
+
+    Route::get('peserta/datatables', 'PesertaController@datatables')->name('peserta.datatables');
+    Route::resource('peserta', 'PesertaController')->parameters([
+        'peserta' => 'peserta'
+    ]);
+
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
