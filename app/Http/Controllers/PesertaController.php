@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Peserta;
 use App\Program;
+use App\User;
+
 use Illuminate\Http\Request;
 use DataTables;
 use App\Http\Requests\PesertaRequest;
 use App\Mail\PendaftaranProgram;
 use Mail;
+
+use App\Notifications\PendaftaranPeserta;
 
 class PesertaController extends Controller
 {
@@ -80,6 +84,29 @@ class PesertaController extends Controller
 
         # Hantar email notifikasi pendaftaran program kepada peserta
         Mail::to($peserta->email)->send(new PendaftaranProgram($peserta));
+
+        # Hantar notifikasi pendaftaran peserta kepada semua admin
+        $admins = User::where('role', '=', 'admin')->get();
+
+        $data = [
+            'nama_peserta' => $peserta->nama,
+            'email_peserta' => $peserta->email,
+            'nama_program' => $peserta->program->name,
+            'tarikh_mula' => $peserta->program->tarikh_mula,
+            'tarikh_akhir' => $peserta->program->tarikh_akhir,
+            'lokasi' => $peserta->program->lokasi,
+            'bantuan_phone' => '0123456789',
+            'bantuan_email' => 'support@aturcara.com',
+            'pengurusan' => 'Pihak Pengurusan KKMM',
+            'nama_aplikasi' => config('app.name'),
+            'link_aplikasi' => env('APP_URL')
+        ];
+
+        foreach ( $admins as $user )
+        {
+            $user->notify(new PendaftaranPeserta($data));
+        }
+        
 
         return redirect()
         ->route('peserta.index')

@@ -14,7 +14,62 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Your notifications (unread)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach (Auth::user()->unreadNotifications as $notification) 
+                            <tr>
+                                <td>
+                                    {{ $notification->data['nama_peserta'] }} 
+                                    telah didaftarkan untuk menyertai program 
+                                    {{ $notification->data['nama_program'] }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('notifications.read', $notification->id) }}" class="btn btn-sm btn-primary">Mark as Read</a>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Your notifications (read)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach (Auth::user()->notifications as $notification) 
+                            <tr>
+                                <td>
+                                    {{ $notification->data['nama_peserta'] }} 
+                                    telah didaftarkan untuk menyertai program 
+                                    {{ $notification->data['nama_program'] }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('notifications.read', $notification->id) }}" class="btn btn-sm btn-primary">Mark as Read</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                            <tr>
+                            <td colspan="2">
+                            {!! Form::open(['route' => 'notifications.destroy']) !!}
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-block">Delete all notifications</a>
+                            {!! Form::close() !!}
+                            </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

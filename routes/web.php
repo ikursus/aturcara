@@ -29,6 +29,10 @@ Route::group(['middleware' => ['auth', 'semak_admin'] ], function() {
         'peserta' => 'peserta'
     ]);
 
+
+    Route::get('notifications/{id}', 'NotificationController@markAsRead')->name('notifications.read');
+    Route::delete('notifications', 'NotificationController@destroy')->name('notifications.destroy');
+
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
