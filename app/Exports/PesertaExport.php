@@ -53,11 +53,13 @@ class PesertaExport implements FromQuery, WithHeadings, WithMapping
         return [
             $peserta->id,
             $peserta->program->name,
+            $peserta->program->lokasi,
             $peserta->nama,
             $peserta->jabatan,
             $peserta->jawatan,
             $peserta->email,
             $peserta->status,
+            #$peserta->getOriginal('is_vegetarian')
             strip_tags($peserta->is_vegetarian)
         ];
     }
@@ -67,6 +69,7 @@ class PesertaExport implements FromQuery, WithHeadings, WithMapping
         return [
             'ID',
             'NAMA PROGRAM',
+            'LOKASI PROGRAM',
             'NAMA PESERTA',
             'JABATAN',
             'JAWATAN',
