@@ -18,6 +18,7 @@ use App\Exports\PesertaExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use PDF;
+use Carbon\Carbon;
 
 class PesertaController extends Controller
 {
@@ -189,13 +190,14 @@ class PesertaController extends Controller
     // Method @ Function untuk cetak surat dalam bentuk PDF
     public function print(Request $request, Peserta $peserta)
     {
+        $tarikh = Carbon::now();
         $pdf = PDF::loadView('theme_peserta/template_surat', compact('peserta'));
 
         if ($request->input('cetak') == 'download')
         {
             return $pdf->download($peserta->id . '_surat_jemputan.pdf');
         }
-        
+
         return $pdf->stream($peserta->id . '_surat_jemputan.pdf');
     }
 }

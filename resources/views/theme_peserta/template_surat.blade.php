@@ -13,6 +13,8 @@
 </head>
 <body>
     
+    <p>Tarikh: {{ \Carbon\Carbon::now()->toFormattedDateString() }}</p>
+
     <p>{{ $peserta->nama }},</p>
     <p><strong><u>Jemputan menghadiri program {{ $peserta->program->name }}</u></strong></p>
     <p>Merujuk perkara diatas, Tuan / Puan dijemput menghadiri program berikut:</p>

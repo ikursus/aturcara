@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth', 'semak_admin'] ], function() {
         'peserta' => 'peserta'
     ]);
 
+    Route::get('statistik', 'StatistikController@index')->name('statistik.index');
+
 
     Route::get('notifications/{id}', 'NotificationController@markAsRead')->name('notifications.read');
     Route::delete('notifications', 'NotificationController@destroy')->name('notifications.destroy');
