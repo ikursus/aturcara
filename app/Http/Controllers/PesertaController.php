@@ -14,6 +14,9 @@ use Mail;
 
 use App\Notifications\PendaftaranPeserta;
 
+use App\Exports\PesertaExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class PesertaController extends Controller
 {
     /**
@@ -23,7 +26,9 @@ class PesertaController extends Controller
      */
     public function index()
     {
-        return view('theme_peserta/template_index');
+        $programs = Program::pluck('name', 'id');
+
+        return view('theme_peserta/template_index', compact('programs'));
     }
     
     /**
@@ -169,5 +174,13 @@ class PesertaController extends Controller
         return redirect()
         ->route('peserta.index')
         ->with('alert-success', 'Rekod berjaya dihapuskan!');
+    }
+
+    // Method @ Function untuk export rekod peserta
+    public function export(Request $request)
+    {
+        $program = $request->input('program_id');
+        
+        return Excel::download(new PesertaExport($program), 'peserta.xlsx');
     }
 }

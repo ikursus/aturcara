@@ -8,6 +8,8 @@ use App\User;
 use DataTables;
 use App\Http\Requests\UserStore;
 use App\Http\Requests\UserUpdate;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class UserController extends Controller
@@ -134,5 +136,13 @@ class UserController extends Controller
         return redirect()
         ->back()
         ->with('alert-success', 'Rekod berjaya dihapuskan!');
+    }
+
+    // Method @ Function untuk export rekod users
+    public function export()
+    {
+        $file_name = date('Y-m-d');
+
+        return Excel::download(new UsersExport, $file_name . '-users.xlsx');
     }
 }

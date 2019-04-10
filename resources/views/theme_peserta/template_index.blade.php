@@ -15,6 +15,16 @@
                             Add Peserta
                         </a>
                     </p>
+                    {!! Form::open(['method' => 'get', 'route' => 'peserta.export', 'class' => 'form-inline']) !!}
+                    <div class="form-group">
+                        {!! Form::select('program_id', $programs, null, ['class' => 'form-control', 'placeholder' => '-- Semua Peserta --']) !!}
+                    </div>
+                    <button type="submit" class="btn btn-primary ml-2">
+                    Export Peserta
+                    </button>
+                    {!! Form::close() !!}
+                    
+                    <hr>
                     
                     <table class="table" id="pesertas-table">
                         <thead class="thead-light">

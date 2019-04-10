@@ -19,11 +19,14 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth', 'semak_admin'] ], function() {
 
+    Route::get('users/export', 'UserController@export')->name('users.export');
     Route::get('users/datatables', 'UserController@datatables')->name('users.datatables');
     Route::resource('users', 'UserController');
+
     Route::get('programs/datatables', 'ProgramController@datatables')->name('programs.datatables');
     Route::resource('programs', 'ProgramController');
 
+    Route::get('peserta/export', 'PesertaController@export')->name('peserta.export');
     Route::get('peserta/datatables', 'PesertaController@datatables')->name('peserta.datatables');
     Route::resource('peserta', 'PesertaController')->parameters([
         'peserta' => 'peserta'

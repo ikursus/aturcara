@@ -14,6 +14,10 @@
                         <a href="{{ route('users.create') }}" class="btn btn-primary">
                             Add User
                         </a>
+
+                        <a href="{{ route('users.export') }}" class="btn btn-success">
+                            Export Users
+                        </a>
                     </p>
                     
                     <table class="table" id="users-table">
