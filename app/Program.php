@@ -13,4 +13,9 @@ class Program extends Model
         'lokasi',
         'jumlah_peserta'
     ];
+
+    public function totalPeserta()
+    {
+        return $this->hasMany(Peserta::class, 'program_id', 'id');
+    }
 }
