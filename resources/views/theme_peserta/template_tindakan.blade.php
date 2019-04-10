@@ -1,11 +1,18 @@
 
+<a href="{{ route('peserta.print', [$item->id, 'cetak' => 'download']) }}" class="btn btn-success btn-sm">
+  DOWNLOAD SURAT
+</a>
+<a href="{{ route('peserta.print', [$item->id, 'cetak' => 'lihat']) }}" class="btn btn-warning btn-sm">
+  LIHAT SURAT
+</a>
+
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#update-{{ $item->id }}">
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#update-{{ $item->id }}">
   EDIT
 </button>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-{{ $item->id }}">
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-{{ $item->id }}">
   DELETE
 </button>
 

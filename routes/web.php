@@ -28,6 +28,9 @@ Route::group(['middleware' => ['auth', 'semak_admin'] ], function() {
 
     Route::get('peserta/export', 'PesertaController@export')->name('peserta.export');
     Route::get('peserta/datatables', 'PesertaController@datatables')->name('peserta.datatables');
+    
+    Route::get('peserta/{peserta}/print', 'PesertaController@print')->name('peserta.print');
+
     Route::resource('peserta', 'PesertaController')->parameters([
         'peserta' => 'peserta'
     ]);
